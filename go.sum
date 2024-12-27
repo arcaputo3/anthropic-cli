@@ -1,5 +1,3 @@
-github.com/anthropics/anthropic-sdk-go v0.2.0-alpha.5 h1:Ew8EGOH+FUI5fsJmpM03jkQFpXkxY82fGrXE/3aaq9U=
-github.com/anthropics/anthropic-sdk-go v0.2.0-alpha.5/go.mod h1:GJxtdOs9K4neo8Gg65CjJ7jNautmldGli5/OFNabOoo=
 github.com/tidwall/gjson v1.14.2/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
 github.com/tidwall/gjson v1.14.4 h1:uo0p8EbA09J7RQaflQ1aBRffTR7xedD2bcIVSYxLnkM=
 github.com/tidwall/gjson v1.14.4/go.mod h1:/wbyibRr2FHMks5tjHJ5F8dMZh3AcwJEMf5vlfC0lxk=
