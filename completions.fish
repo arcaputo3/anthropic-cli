@@ -20,7 +20,7 @@ complete -c anthropic-cli --no-files \
   -a "--message-batch-id"
 complete -c anthropic-cli --no-files \
   -n "__fish_seen_subcommand_from messages.batches.list" \
-  -a ""
+  -a "--after-id --before-id --limit"
 complete -c anthropic-cli --no-files \
   -n "__fish_seen_subcommand_from messages.batches.delete" \
   -a "--message-batch-id"
@@ -32,7 +32,7 @@ complete -c anthropic-cli --no-files \
   -a "--model-id"
 complete -c anthropic-cli --no-files \
   -n "__fish_seen_subcommand_from models.list" \
-  -a ""
+  -a "--after-id --before-id --limit"
 
  complete -c anthropic-cli --no-files \
    -n "__fish_seen_subcommand_from completions.create" \

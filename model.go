@@ -6,13 +6,16 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func createModelsRetrieveSubcommand() Subcommand {
 	var modelID *string = nil
+	query := []byte("{}")
 	var flagSet = flag.NewFlagSet("models.retrieve", flag.ExitOnError)
 
 	flagSet.Func(
@@ -27,7 +30,14 @@ func createModelsRetrieveSubcommand() Subcommand {
 	return Subcommand{
 		flagSet: flagSet,
 		handle: func(client *anthropic.Client) {
-			res, err := client.Models.Get(context.TODO(), *modelID)
+			res, err := client.Models.Get(
+				context.TODO(),
+				*modelID,
+				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
+					r.URL.RawQuery = serializeQuery(query).Encode()
+					return mn(r)
+				}),
+			)
 			if err != nil {
 				fmt.Printf("%s\n", err)
 				os.Exit(1)
@@ -39,12 +49,63 @@ func createModelsRetrieveSubcommand() Subcommand {
 }
 
 func createModelsListSubcommand() Subcommand {
+	query := []byte("{}")
 	var flagSet = flag.NewFlagSet("models.list", flag.ExitOnError)
+
+	flagSet.Func(
+		"after-id",
+		"",
+		func(string string) error {
+			var jsonErr error
+			query, jsonErr = jsonSet(query, "after_id", string)
+			if jsonErr != nil {
+				return jsonErr
+			}
+			return nil
+		},
+	)
+
+	flagSet.Func(
+		"before-id",
+		"",
+		func(string string) error {
+			var jsonErr error
+			query, jsonErr = jsonSet(query, "before_id", string)
+			if jsonErr != nil {
+				return jsonErr
+			}
+			return nil
+		},
+	)
+
+	flagSet.Func(
+		"limit",
+		"",
+		func(string string) error {
+			int, err := parseInt(string)
+			if err != nil {
+				return err
+			}
+			var jsonErr error
+			query, jsonErr = jsonSet(query, "limit", int)
+			if jsonErr != nil {
+				return jsonErr
+			}
+			return nil
+		},
+	)
 
 	return Subcommand{
 		flagSet: flagSet,
 		handle: func(client *anthropic.Client) {
-			res, err := client.Models.List(context.TODO(), anthropic.ModelListParams{})
+			res, err := client.Models.List(
+				context.TODO(),
+				anthropic.ModelListParams{},
+				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
+					r.URL.RawQuery = serializeQuery(query).Encode()
+					return mn(r)
+				}),
+			)
 			if err != nil {
 				fmt.Printf("%s\n", err)
 				os.Exit(1)

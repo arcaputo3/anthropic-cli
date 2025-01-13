@@ -33,7 +33,7 @@ _main()
         flags="--message-batch-id"
         ;;
       messages.batches.list)
-        flags=""
+        flags="--after-id --before-id --limit"
         ;;
       messages.batches.delete)
         flags="--message-batch-id"
@@ -45,7 +45,7 @@ _main()
         flags="--model-id"
         ;;
       models.list)
-        flags=""
+        flags="--after-id --before-id --limit"
         ;;
       *)
         # Unknown subcommand

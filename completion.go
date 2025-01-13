@@ -6,14 +6,16 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
-func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
-	json := initialJson
+func createCompletionsCreateSubcommand(initialBody []byte) Subcommand {
+	query := []byte("{}")
+	body := initialBody
 	var flagSet = flag.NewFlagSet("completions.create", flag.ExitOnError)
 
 	flagSet.Func(
@@ -25,7 +27,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "max_tokens_to_sample", int)
+			body, jsonErr = jsonSet(body, "max_tokens_to_sample", int)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -38,7 +40,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "model", string)
+			body, jsonErr = jsonSet(body, "model", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -51,7 +53,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "prompt", string)
+			body, jsonErr = jsonSet(body, "prompt", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -64,7 +66,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "metadata.user_id", string)
+			body, jsonErr = jsonSet(body, "metadata.user_id", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -77,7 +79,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "stop_sequences.#", string)
+			body, jsonErr = jsonSet(body, "stop_sequences.#", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -90,7 +92,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "stop_sequences.-1", string)
+			body, jsonErr = jsonSet(body, "stop_sequences.-1", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -107,7 +109,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "temperature", float)
+			body, jsonErr = jsonSet(body, "temperature", float)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -124,7 +126,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "top_k", int)
+			body, jsonErr = jsonSet(body, "top_k", int)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -141,7 +143,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "top_p", float)
+			body, jsonErr = jsonSet(body, "top_p", float)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -153,7 +155,7 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 		flagSet: flagSet,
 		handle: func(client *anthropic.Client) {
 			var err error
-			json, err = jsonSet(json, "stream", true)
+			body, err = jsonSet(body, "stream", true)
 			if err != nil {
 				fmt.Printf("%s\n", err)
 				os.Exit(1)
@@ -161,7 +163,11 @@ func createCompletionsCreateSubcommand(initialJson []byte) Subcommand {
 			stream := client.Completions.NewStreaming(
 				context.TODO(),
 				anthropic.CompletionNewParams{},
-				option.WithRequestBody("application/json", json),
+				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
+					r.URL.RawQuery = serializeQuery(query).Encode()
+					return mn(r)
+				}),
+				option.WithRequestBody("application/json", body),
 			)
 			for stream.Next() {
 				fmt.Printf("%s\n", stream.Current().JSON.RawJSON())

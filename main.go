@@ -29,21 +29,21 @@ func main() {
 }
 
 func init() {
-	initialJson := getStdInput()
-	if initialJson == nil {
-		initialJson = []byte("{}")
+	initialBody := getStdInput()
+	if initialBody == nil {
+		initialBody = []byte("{}")
 	}
 
-	var completionsCreateSubcommand = createCompletionsCreateSubcommand(initialJson)
+	var completionsCreateSubcommand = createCompletionsCreateSubcommand(initialBody)
 	subcommands[completionsCreateSubcommand.flagSet.Name()] = &completionsCreateSubcommand
 
-	var messagesCreateSubcommand = createMessagesCreateSubcommand(initialJson)
+	var messagesCreateSubcommand = createMessagesCreateSubcommand(initialBody)
 	subcommands[messagesCreateSubcommand.flagSet.Name()] = &messagesCreateSubcommand
 
-	var messagesCountTokensSubcommand = createMessagesCountTokensSubcommand(initialJson)
+	var messagesCountTokensSubcommand = createMessagesCountTokensSubcommand(initialBody)
 	subcommands[messagesCountTokensSubcommand.flagSet.Name()] = &messagesCountTokensSubcommand
 
-	var messagesBatchesCreateSubcommand = createMessagesBatchesCreateSubcommand(initialJson)
+	var messagesBatchesCreateSubcommand = createMessagesBatchesCreateSubcommand(initialBody)
 	subcommands[messagesBatchesCreateSubcommand.flagSet.Name()] = &messagesBatchesCreateSubcommand
 
 	var messagesBatchesRetrieveSubcommand = createMessagesBatchesRetrieveSubcommand()
@@ -52,10 +52,10 @@ func init() {
 	var messagesBatchesListSubcommand = createMessagesBatchesListSubcommand()
 	subcommands[messagesBatchesListSubcommand.flagSet.Name()] = &messagesBatchesListSubcommand
 
-	var messagesBatchesDeleteSubcommand = createMessagesBatchesDeleteSubcommand(initialJson)
+	var messagesBatchesDeleteSubcommand = createMessagesBatchesDeleteSubcommand(initialBody)
 	subcommands[messagesBatchesDeleteSubcommand.flagSet.Name()] = &messagesBatchesDeleteSubcommand
 
-	var messagesBatchesCancelSubcommand = createMessagesBatchesCancelSubcommand(initialJson)
+	var messagesBatchesCancelSubcommand = createMessagesBatchesCancelSubcommand(initialBody)
 	subcommands[messagesBatchesCancelSubcommand.flagSet.Name()] = &messagesBatchesCancelSubcommand
 
 	var modelsRetrieveSubcommand = createModelsRetrieveSubcommand()

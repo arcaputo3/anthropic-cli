@@ -6,14 +6,16 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
-func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
-	json := initialJson
+func createMessagesCreateSubcommand(initialBody []byte) Subcommand {
+	query := []byte("{}")
+	body := initialBody
 	var flagSet = flag.NewFlagSet("messages.create", flag.ExitOnError)
 
 	flagSet.Func(
@@ -25,7 +27,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "max_tokens", int)
+			body, jsonErr = jsonSet(body, "max_tokens", int)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -38,7 +40,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.text", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.text", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -51,7 +53,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -64,7 +66,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -77,7 +79,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.source.data", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.source.data", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -90,7 +92,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.source.media_type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.source.media_type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -103,7 +105,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.source.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.source.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -116,7 +118,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.id", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.id", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -129,7 +131,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.name", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.name", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -142,7 +144,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.tool_use_id", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.tool_use_id", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -155,7 +157,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.text", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.text", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -168,7 +170,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -181,7 +183,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -194,7 +196,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.source.data", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.source.data", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -207,7 +209,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.source.media_type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.source.media_type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -220,7 +222,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.source.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.source.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -233,7 +235,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -246,7 +248,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.is_error", true)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.is_error", true)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -259,7 +261,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "messages.#.content.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -272,7 +274,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.role", string)
+			body, jsonErr = jsonSet(body, "messages.#.role", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -285,7 +287,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "messages.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -298,7 +300,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "model", string)
+			body, jsonErr = jsonSet(body, "model", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -311,7 +313,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "metadata.user_id", string)
+			body, jsonErr = jsonSet(body, "metadata.user_id", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -324,7 +326,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "stop_sequences.#", string)
+			body, jsonErr = jsonSet(body, "stop_sequences.#", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -337,7 +339,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "stop_sequences.-1", string)
+			body, jsonErr = jsonSet(body, "stop_sequences.-1", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -350,7 +352,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.#.text", string)
+			body, jsonErr = jsonSet(body, "system.#.text", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -363,7 +365,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.#.type", string)
+			body, jsonErr = jsonSet(body, "system.#.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -376,7 +378,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "system.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -389,7 +391,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "system.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -406,7 +408,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "temperature", float)
+			body, jsonErr = jsonSet(body, "temperature", float)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -419,7 +421,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tool_choice.type", string)
+			body, jsonErr = jsonSet(body, "tool_choice.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -432,7 +434,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tool_choice.disable_parallel_tool_use", true)
+			body, jsonErr = jsonSet(body, "tool_choice.disable_parallel_tool_use", true)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -445,7 +447,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tool_choice.name", string)
+			body, jsonErr = jsonSet(body, "tool_choice.name", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -458,7 +460,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.#.name", string)
+			body, jsonErr = jsonSet(body, "tools.#.name", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -471,7 +473,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "tools.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -484,7 +486,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.#.description", string)
+			body, jsonErr = jsonSet(body, "tools.#.description", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -497,7 +499,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "tools.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -514,7 +516,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "top_k", int)
+			body, jsonErr = jsonSet(body, "top_k", int)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -531,7 +533,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 				return err
 			}
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "top_p", float)
+			body, jsonErr = jsonSet(body, "top_p", float)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -543,7 +545,7 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 		flagSet: flagSet,
 		handle: func(client *anthropic.Client) {
 			var err error
-			json, err = jsonSet(json, "stream", true)
+			body, err = jsonSet(body, "stream", true)
 			if err != nil {
 				fmt.Printf("%s\n", err)
 				os.Exit(1)
@@ -551,7 +553,11 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 			stream := client.Messages.NewStreaming(
 				context.TODO(),
 				anthropic.MessageNewParams{},
-				option.WithRequestBody("application/json", json),
+				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
+					r.URL.RawQuery = serializeQuery(query).Encode()
+					return mn(r)
+				}),
+				option.WithRequestBody("application/json", body),
 			)
 			for stream.Next() {
 				fmt.Printf("%s\n", stream.Current().JSON.RawJSON())
@@ -560,8 +566,9 @@ func createMessagesCreateSubcommand(initialJson []byte) Subcommand {
 	}
 }
 
-func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
-	json := initialJson
+func createMessagesCountTokensSubcommand(initialBody []byte) Subcommand {
+	query := []byte("{}")
+	body := initialBody
 	var flagSet = flag.NewFlagSet("messages.count_tokens", flag.ExitOnError)
 
 	flagSet.Func(
@@ -569,7 +576,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.text", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.text", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -582,7 +589,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -595,7 +602,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -608,7 +615,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.source.data", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.source.data", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -621,7 +628,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.source.media_type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.source.media_type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -634,7 +641,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.source.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.source.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -647,7 +654,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.id", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.id", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -660,7 +667,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.name", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.name", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -673,7 +680,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.tool_use_id", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.tool_use_id", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -686,7 +693,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.text", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.text", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -699,7 +706,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -712,7 +719,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -725,7 +732,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.source.data", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.source.data", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -738,7 +745,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.source.media_type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.source.media_type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -751,7 +758,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.#.source.type", string)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.#.source.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -764,7 +771,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.content.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "messages.#.content.#.content.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -777,7 +784,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.#.is_error", true)
+			body, jsonErr = jsonSet(body, "messages.#.content.#.is_error", true)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -790,7 +797,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.content.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "messages.#.content.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -803,7 +810,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.#.role", string)
+			body, jsonErr = jsonSet(body, "messages.#.role", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -816,7 +823,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "messages.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "messages.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -829,7 +836,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "model", string)
+			body, jsonErr = jsonSet(body, "model", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -842,7 +849,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system", string)
+			body, jsonErr = jsonSet(body, "system", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -855,7 +862,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.#.text", string)
+			body, jsonErr = jsonSet(body, "system.#.text", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -868,7 +875,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.#.type", string)
+			body, jsonErr = jsonSet(body, "system.#.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -881,7 +888,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "system.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -894,7 +901,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "system.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "system.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -907,7 +914,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tool_choice.type", string)
+			body, jsonErr = jsonSet(body, "tool_choice.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -920,7 +927,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tool_choice.disable_parallel_tool_use", true)
+			body, jsonErr = jsonSet(body, "tool_choice.disable_parallel_tool_use", true)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -933,7 +940,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tool_choice.name", string)
+			body, jsonErr = jsonSet(body, "tool_choice.name", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -946,7 +953,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.#.name", string)
+			body, jsonErr = jsonSet(body, "tools.#.name", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -959,7 +966,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.#.cache_control.type", string)
+			body, jsonErr = jsonSet(body, "tools.#.cache_control.type", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -972,7 +979,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(string string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.#.description", string)
+			body, jsonErr = jsonSet(body, "tools.#.description", string)
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -985,7 +992,7 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 		"",
 		func(_ string) error {
 			var jsonErr error
-			json, jsonErr = jsonSet(json, "tools.-1", map[string]interface{}{})
+			body, jsonErr = jsonSet(body, "tools.-1", map[string]interface{}{})
 			if jsonErr != nil {
 				return jsonErr
 			}
@@ -999,7 +1006,11 @@ func createMessagesCountTokensSubcommand(initialJson []byte) Subcommand {
 			res, err := client.Messages.CountTokens(
 				context.TODO(),
 				anthropic.MessageCountTokensParams{},
-				option.WithRequestBody("application/json", json),
+				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
+					r.URL.RawQuery = serializeQuery(query).Encode()
+					return mn(r)
+				}),
+				option.WithRequestBody("application/json", body),
 			)
 			if err != nil {
 				fmt.Printf("%s\n", err)

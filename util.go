@@ -3,6 +3,7 @@ package main
 import (
 	"io"
 	"log"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -44,6 +45,39 @@ func jsonSet(json []byte, path string, value interface{}) ([]byte, error) {
 		path += key
 	}
 	return sjson.SetBytes(json, path, value)
+}
+
+func serializeQuery(query []byte) url.Values {
+	serializedQuery := url.Values{}
+
+	var serialize func(value gjson.Result, path string)
+	serialize = func(res gjson.Result, path string) {
+		if res.IsObject() {
+			for key, value := range res.Map() {
+				newPath := path
+				if len(newPath) == 0 {
+					newPath += key
+				} else {
+					newPath = "[" + key + "]"
+				}
+
+				serialize(value, newPath)
+			}
+		} else if res.IsArray() {
+			for _, value := range res.Array() {
+				serialize(value, path)
+			}
+		} else {
+			serializedQuery.Add(path, res.String())
+		}
+	}
+	serialize(gjson.GetBytes(query, "@this"), "")
+
+	for key, values := range serializedQuery {
+		serializedQuery.Set(key, strings.Join(values, ","))
+	}
+
+	return serializedQuery
 }
 
 func getStdInput() []byte {
