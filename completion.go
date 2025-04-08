@@ -165,8 +165,20 @@ func createCompletionsCreateSubcommand(initialBody []byte) Subcommand {
 				context.TODO(),
 				anthropic.CompletionNewParams{},
 				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
-					r.URL.RawQuery = serializeQuery(query).Encode()
-					r.Header = serializeHeader(header)
+					q := r.URL.Query()
+					for key, values := range serializeQuery(query) {
+						for _, value := range values {
+							q.Add(key, value)
+						}
+					}
+					r.URL.RawQuery = q.Encode()
+
+					for key, values := range serializeHeader(header) {
+						for _, value := range values {
+							r.Header.Add(key, value)
+						}
+					}
+
 					return mn(r)
 				}),
 				option.WithRequestBody("application/json", body),

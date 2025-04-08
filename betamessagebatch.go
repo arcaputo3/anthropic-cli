@@ -1626,8 +1626,20 @@ func createBetaMessagesBatchesCreateSubcommand(initialBody []byte) Subcommand {
 				context.TODO(),
 				anthropic.BetaMessageBatchNewParams{},
 				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
-					r.URL.RawQuery = serializeQuery(query).Encode()
-					r.Header = serializeHeader(header)
+					q := r.URL.Query()
+					for key, values := range serializeQuery(query) {
+						for _, value := range values {
+							q.Add(key, value)
+						}
+					}
+					r.URL.RawQuery = q.Encode()
+
+					for key, values := range serializeHeader(header) {
+						for _, value := range values {
+							r.Header.Add(key, value)
+						}
+					}
+
 					return mn(r)
 				}),
 				option.WithRequestBody("application/json", body),
@@ -1691,8 +1703,20 @@ func createBetaMessagesBatchesRetrieveSubcommand() Subcommand {
 				*messageBatchID,
 				anthropic.BetaMessageBatchGetParams{},
 				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
-					r.URL.RawQuery = serializeQuery(query).Encode()
-					r.Header = serializeHeader(header)
+					q := r.URL.Query()
+					for key, values := range serializeQuery(query) {
+						for _, value := range values {
+							q.Add(key, value)
+						}
+					}
+					r.URL.RawQuery = q.Encode()
+
+					for key, values := range serializeHeader(header) {
+						for _, value := range values {
+							r.Header.Add(key, value)
+						}
+					}
+
 					return mn(r)
 				}),
 			)
@@ -1787,8 +1811,20 @@ func createBetaMessagesBatchesListSubcommand() Subcommand {
 				context.TODO(),
 				anthropic.BetaMessageBatchListParams{},
 				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
-					r.URL.RawQuery = serializeQuery(query).Encode()
-					r.Header = serializeHeader(header)
+					q := r.URL.Query()
+					for key, values := range serializeQuery(query) {
+						for _, value := range values {
+							q.Add(key, value)
+						}
+					}
+					r.URL.RawQuery = q.Encode()
+
+					for key, values := range serializeHeader(header) {
+						for _, value := range values {
+							r.Header.Add(key, value)
+						}
+					}
+
 					return mn(r)
 				}),
 			)
@@ -1852,8 +1888,20 @@ func createBetaMessagesBatchesDeleteSubcommand(initialBody []byte) Subcommand {
 				*messageBatchID,
 				anthropic.BetaMessageBatchDeleteParams{},
 				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
-					r.URL.RawQuery = serializeQuery(query).Encode()
-					r.Header = serializeHeader(header)
+					q := r.URL.Query()
+					for key, values := range serializeQuery(query) {
+						for _, value := range values {
+							q.Add(key, value)
+						}
+					}
+					r.URL.RawQuery = q.Encode()
+
+					for key, values := range serializeHeader(header) {
+						for _, value := range values {
+							r.Header.Add(key, value)
+						}
+					}
+
 					return mn(r)
 				}),
 				option.WithRequestBody("application/json", body),
@@ -1918,8 +1966,20 @@ func createBetaMessagesBatchesCancelSubcommand(initialBody []byte) Subcommand {
 				*messageBatchID,
 				anthropic.BetaMessageBatchCancelParams{},
 				option.WithMiddleware(func(r *http.Request, mn option.MiddlewareNext) (*http.Response, error) {
-					r.URL.RawQuery = serializeQuery(query).Encode()
-					r.Header = serializeHeader(header)
+					q := r.URL.Query()
+					for key, values := range serializeQuery(query) {
+						for _, value := range values {
+							q.Add(key, value)
+						}
+					}
+					r.URL.RawQuery = q.Encode()
+
+					for key, values := range serializeHeader(header) {
+						for _, value := range values {
+							r.Header.Add(key, value)
+						}
+					}
+
 					return mn(r)
 				}),
 				option.WithRequestBody("application/json", body),
