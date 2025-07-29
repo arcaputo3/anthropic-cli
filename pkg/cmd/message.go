@@ -864,6 +864,13 @@ var messagesCreate = cli.Command{
 				Path: "tools.#.type",
 			},
 		},
+		&jsonflag.JSONIntFlag{
+			Name: "tools.max_characters",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "tools.#.max_characters",
+			},
+		},
 		&jsonflag.JSONStringFlag{
 			Name: "tools.allowed_domains",
 			Config: jsonflag.JSONConfig{
@@ -1776,6 +1783,13 @@ var messagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "tools.#.type",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "tools.max_characters",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "tools.#.max_characters",
 			},
 		},
 		&jsonflag.JSONStringFlag{

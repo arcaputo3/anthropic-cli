@@ -879,6 +879,13 @@ var messagesBatchesCreate = cli.Command{
 				Path: "requests.#.params.tools.#.type",
 			},
 		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.tools.max_characters",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.tools.#.max_characters",
+			},
+		},
 		&jsonflag.JSONStringFlag{
 			Name: "requests.params.tools.allowed_domains",
 			Config: jsonflag.JSONConfig{

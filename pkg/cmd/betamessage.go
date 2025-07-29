@@ -1306,6 +1306,13 @@ var betaMessagesCreate = cli.Command{
 				Path: "tools.#.display_number",
 			},
 		},
+		&jsonflag.JSONIntFlag{
+			Name: "tools.max_characters",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "tools.#.max_characters",
+			},
+		},
 		&jsonflag.JSONStringFlag{
 			Name: "tools.allowed_domains",
 			Config: jsonflag.JSONConfig{
@@ -2667,6 +2674,13 @@ var betaMessagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "tools.#.display_number",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "tools.max_characters",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "tools.#.max_characters",
 			},
 		},
 		&jsonflag.JSONStringFlag{
