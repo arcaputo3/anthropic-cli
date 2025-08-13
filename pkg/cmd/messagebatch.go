@@ -53,6 +53,13 @@ var messagesBatchesCreate = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.cache_control.ttl",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "requests.params.messages.content.citations.cited_text",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
@@ -220,6 +227,13 @@ var messagesBatchesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "requests.#.params.messages.#.content.#.source.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.source.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.source.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -414,6 +428,13 @@ var messagesBatchesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "requests.#.params.messages.#.content.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -635,6 +656,13 @@ var messagesBatchesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "requests.#.params.messages.#.content.#.content.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -908,6 +936,13 @@ var messagesBatchesCreate = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "requests.params.system.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.system.#.cache_control.ttl",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "requests.params.system.citations.cited_text",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
@@ -1085,6 +1120,13 @@ var messagesBatchesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "requests.#.params.tools.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.tools.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.tools.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{

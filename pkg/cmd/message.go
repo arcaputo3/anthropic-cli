@@ -46,6 +46,13 @@ var messagesCreate = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "messages.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.cache_control.ttl",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "messages.content.citations.cited_text",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
@@ -213,6 +220,13 @@ var messagesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.source.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.source.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.source.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -407,6 +421,13 @@ var messagesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -628,6 +649,13 @@ var messagesCreate = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.content.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.content.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.content.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -893,6 +921,13 @@ var messagesCreate = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "system.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "system.#.cache_control.ttl",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "system.citations.cited_text",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
@@ -1073,6 +1108,13 @@ var messagesCreate = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "tools.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "tools.#.cache_control.ttl",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "tools.description",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
@@ -1214,6 +1256,13 @@ var messagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -1384,6 +1433,13 @@ var messagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.source.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.source.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.source.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -1578,6 +1634,13 @@ var messagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -1799,6 +1862,13 @@ var messagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "messages.#.content.#.content.#.content.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "messages.content.content.content.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "messages.#.content.#.content.#.content.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
@@ -2043,6 +2113,13 @@ var messagesCountTokens = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "system.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "system.#.cache_control.ttl",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "system.citations.cited_text",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
@@ -2213,6 +2290,13 @@ var messagesCountTokens = cli.Command{
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "tools.#.cache_control.type",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "tools.cache_control.ttl",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "tools.#.cache_control.ttl",
 			},
 		},
 		&jsonflag.JSONStringFlag{
