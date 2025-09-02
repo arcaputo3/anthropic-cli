@@ -896,6 +896,98 @@ var betaMessagesBatchesCreate = cli.Command{
 			},
 		},
 		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.error_message",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.error_message",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.content",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.content",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.file_type",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.file_type",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.num_lines",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.num_lines",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.start_line",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.start_line",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.total_lines",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.total_lines",
+			},
+		},
+		&jsonflag.JSONBoolFlag{
+			Name: "requests.params.messages.content.content.is_file_update",
+			Config: jsonflag.JSONConfig{
+				Kind:     jsonflag.Body,
+				Path:     "requests.#.params.messages.#.content.#.content.is_file_update",
+				SetValue: true,
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.lines",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.lines.#",
+			},
+		},
+		&jsonflag.JSONStringFlag{
+			Name: "requests.params.messages.content.content.+line",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.lines.-1",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.new_lines",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.new_lines",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.new_start",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.new_start",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.old_lines",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.old_lines",
+			},
+		},
+		&jsonflag.JSONIntFlag{
+			Name: "requests.params.messages.content.content.old_start",
+			Config: jsonflag.JSONConfig{
+				Kind: jsonflag.Body,
+				Path: "requests.#.params.messages.#.content.#.content.old_start",
+			},
+		},
+		&jsonflag.JSONStringFlag{
 			Name: "requests.params.messages.content.server_name",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
