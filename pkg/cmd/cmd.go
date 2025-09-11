@@ -38,7 +38,6 @@ func init() {
 					&completionsCreate,
 				},
 			},
-
 			{
 				Name:     "messages",
 				Category: "API RESOURCE",
@@ -47,7 +46,6 @@ func init() {
 					&messagesCountTokens,
 				},
 			},
-
 			{
 				Name:     "messages:batches",
 				Category: "API RESOURCE",
@@ -59,7 +57,6 @@ func init() {
 					&messagesBatchesCancel,
 				},
 			},
-
 			{
 				Name:     "models",
 				Category: "API RESOURCE",
@@ -68,7 +65,6 @@ func init() {
 					&modelsList,
 				},
 			},
-
 			{
 				Name:     "beta:models",
 				Category: "API RESOURCE",
@@ -77,7 +73,6 @@ func init() {
 					&betaModelsList,
 				},
 			},
-
 			{
 				Name:     "beta:messages",
 				Category: "API RESOURCE",
@@ -86,7 +81,6 @@ func init() {
 					&betaMessagesCountTokens,
 				},
 			},
-
 			{
 				Name:     "beta:messages:batches",
 				Category: "API RESOURCE",
@@ -98,7 +92,6 @@ func init() {
 					&betaMessagesBatchesCancel,
 				},
 			},
-
 			{
 				Name:     "beta:files",
 				Category: "API RESOURCE",
