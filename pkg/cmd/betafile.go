@@ -166,40 +166,44 @@ var betaFilesUpload = cli.Command{
 func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaFileListParams{}
-	res, err := cc.client.Beta.Files.List(
+	var res []byte
+	_, err := cc.client.Beta.Files.List(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:files list", res.RawJSON(), format)
+	return ShowJSON("beta:files list", string(res), format)
 }
 
 func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaFileDeleteParams{}
-	res, err := cc.client.Beta.Files.Delete(
+	var res []byte
+	_, err := cc.client.Beta.Files.Delete(
 		context.TODO(),
 		cmd.Value("file-id").(string),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:files delete", res.RawJSON(), format)
+	return ShowJSON("beta:files delete", string(res), format)
 }
 
 func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaFileDownloadParams{}
-	res := []byte{}
+	var res []byte
 	_, err := cc.client.Beta.Files.Download(
 		context.TODO(),
 		cmd.Value("file-id").(string),
@@ -218,32 +222,36 @@ func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaFileGetMetadataParams{}
-	res, err := cc.client.Beta.Files.GetMetadata(
+	var res []byte
+	_, err := cc.client.Beta.Files.GetMetadata(
 		context.TODO(),
 		cmd.Value("file-id").(string),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:files retrieve-metadata", res.RawJSON(), format)
+	return ShowJSON("beta:files retrieve-metadata", string(res), format)
 }
 
 func handleBetaFilesUpload(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaFileUploadParams{}
-	res, err := cc.client.Beta.Files.Upload(
+	var res []byte
+	_, err := cc.client.Beta.Files.Upload(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:files upload", res.RawJSON(), format)
+	return ShowJSON("beta:files upload", string(res), format)
 }

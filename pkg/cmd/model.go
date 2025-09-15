@@ -84,32 +84,36 @@ var modelsList = cli.Command{
 func handleModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.ModelGetParams{}
-	res, err := cc.client.Models.Get(
+	var res []byte
+	_, err := cc.client.Models.Get(
 		context.TODO(),
 		cmd.Value("model-id").(string),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("models retrieve", res.RawJSON(), format)
+	return ShowJSON("models retrieve", string(res), format)
 }
 
 func handleModelsList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.ModelListParams{}
-	res, err := cc.client.Models.List(
+	var res []byte
+	_, err := cc.client.Models.List(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("models list", res.RawJSON(), format)
+	return ShowJSON("models list", string(res), format)
 }

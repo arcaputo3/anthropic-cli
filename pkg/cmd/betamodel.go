@@ -84,32 +84,36 @@ var betaModelsList = cli.Command{
 func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaModelGetParams{}
-	res, err := cc.client.Beta.Models.Get(
+	var res []byte
+	_, err := cc.client.Beta.Models.Get(
 		context.TODO(),
 		cmd.Value("model-id").(string),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:models retrieve", res.RawJSON(), format)
+	return ShowJSON("beta:models retrieve", string(res), format)
 }
 
 func handleBetaModelsList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaModelListParams{}
-	res, err := cc.client.Beta.Models.List(
+	var res []byte
+	_, err := cc.client.Beta.Models.List(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:models list", res.RawJSON(), format)
+	return ShowJSON("beta:models list", string(res), format)
 }

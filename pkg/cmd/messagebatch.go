@@ -1530,78 +1530,88 @@ var messagesBatchesResults = cli.Command{
 func handleMessagesBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.MessageBatchNewParams{}
-	res, err := cc.client.Messages.Batches.New(
+	var res []byte
+	_, err := cc.client.Messages.Batches.New(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("messages:batches create", res.RawJSON(), format)
+	return ShowJSON("messages:batches create", string(res), format)
 }
 
 func handleMessagesBatchesRetrieve(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	res, err := cc.client.Messages.Batches.Get(
+	var res []byte
+	_, err := cc.client.Messages.Batches.Get(
 		context.TODO(),
 		cmd.Value("message-batch-id").(string),
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("messages:batches retrieve", res.RawJSON(), format)
+	return ShowJSON("messages:batches retrieve", string(res), format)
 }
 
 func handleMessagesBatchesList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.MessageBatchListParams{}
-	res, err := cc.client.Messages.Batches.List(
+	var res []byte
+	_, err := cc.client.Messages.Batches.List(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("messages:batches list", res.RawJSON(), format)
+	return ShowJSON("messages:batches list", string(res), format)
 }
 
 func handleMessagesBatchesDelete(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	res, err := cc.client.Messages.Batches.Delete(
+	var res []byte
+	_, err := cc.client.Messages.Batches.Delete(
 		context.TODO(),
 		cmd.Value("message-batch-id").(string),
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("messages:batches delete", res.RawJSON(), format)
+	return ShowJSON("messages:batches delete", string(res), format)
 }
 
 func handleMessagesBatchesCancel(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	res, err := cc.client.Messages.Batches.Cancel(
+	var res []byte
+	_, err := cc.client.Messages.Batches.Cancel(
 		context.TODO(),
 		cmd.Value("message-batch-id").(string),
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("messages:batches cancel", res.RawJSON(), format)
+	return ShowJSON("messages:batches cancel", string(res), format)
 }
 
 func handleMessagesBatchesResults(ctx context.Context, cmd *cli.Command) error {

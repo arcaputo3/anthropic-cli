@@ -2806,15 +2806,17 @@ func handleMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 func handleMessagesCountTokens(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.MessageCountTokensParams{}
-	res, err := cc.client.Messages.CountTokens(
+	var res []byte
+	_, err := cc.client.Messages.CountTokens(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("messages count-tokens", res.RawJSON(), format)
+	return ShowJSON("messages count-tokens", string(res), format)
 }

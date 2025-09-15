@@ -3925,15 +3925,17 @@ func handleBetaMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 func handleBetaMessagesCountTokens(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	params := anthropic.BetaMessageCountTokensParams{}
-	res, err := cc.client.Beta.Messages.CountTokens(
+	var res []byte
+	_, err := cc.client.Beta.Messages.CountTokens(
 		context.TODO(),
 		params,
 		option.WithMiddleware(cc.AsMiddleware()),
+		option.WithResponseBodyInto(&res),
 	)
 	if err != nil {
 		return err
 	}
 
 	format := cmd.Root().String("format")
-	return ShowJSON("beta:messages count-tokens", res.RawJSON(), format)
+	return ShowJSON("beta:messages count-tokens", string(res), format)
 }
