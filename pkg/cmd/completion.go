@@ -100,6 +100,10 @@ var completionsCreate = cli.Command{
 
 func handleCompletionsCreate(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.CompletionNewParams{}
 	stream := cc.client.Completions.NewStreaming(
 		context.TODO(),

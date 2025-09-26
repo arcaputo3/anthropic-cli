@@ -4,6 +4,7 @@ package cmd
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
@@ -166,6 +167,10 @@ var betaFilesUpload = cli.Command{
 
 func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaFileListParams{}
 	var res []byte
 	_, err := cc.client.Beta.Files.List(
@@ -186,6 +191,14 @@ func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 
 func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
+		cmd.Set("file-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaFileDeleteParams{}
 	var res []byte
 	_, err := cc.client.Beta.Files.Delete(
@@ -207,6 +220,14 @@ func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 
 func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
+		cmd.Set("file-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaFileDownloadParams{}
 	var res []byte
 	_, err := cc.client.Beta.Files.Download(
@@ -228,6 +249,14 @@ func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 
 func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
+		cmd.Set("file-id", unusedArgs[0])
+		unusedArgs = unusedArgs[1:]
+	}
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaFileGetMetadataParams{}
 	var res []byte
 	_, err := cc.client.Beta.Files.GetMetadata(
@@ -249,6 +278,10 @@ func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) erro
 
 func handleBetaFilesUpload(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaFileUploadParams{}
 	var res []byte
 	_, err := cc.client.Beta.Files.Upload(

@@ -3911,6 +3911,10 @@ var betaMessagesCountTokens = cli.Command{
 
 func handleBetaMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaMessageNewParams{}
 	stream := cc.client.Beta.Messages.NewStreaming(
 		context.TODO(),
@@ -3925,6 +3929,10 @@ func handleBetaMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 
 func handleBetaMessagesCountTokens(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.BetaMessageCountTokensParams{}
 	var res []byte
 	_, err := cc.client.Beta.Messages.CountTokens(

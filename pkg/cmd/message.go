@@ -2792,6 +2792,10 @@ var messagesCountTokens = cli.Command{
 
 func handleMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.MessageNewParams{}
 	stream := cc.client.Messages.NewStreaming(
 		context.TODO(),
@@ -2806,6 +2810,10 @@ func handleMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 
 func handleMessagesCountTokens(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
+	unusedArgs := cmd.Args().Slice()
+	if len(unusedArgs) > 0 {
+		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
+	}
 	params := anthropic.MessageCountTokensParams{}
 	var res []byte
 	_, err := cc.client.Messages.CountTokens(
