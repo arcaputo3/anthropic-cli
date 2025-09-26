@@ -4,7 +4,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
@@ -85,14 +84,6 @@ var betaModelsList = cli.Command{
 
 func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("model-id") && len(unusedArgs) > 0 {
-		cmd.Set("model-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	params := anthropic.BetaModelGetParams{}
 	var res []byte
 	_, err := cc.client.Beta.Models.Get(
@@ -114,10 +105,6 @@ func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 
 func handleBetaModelsList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	params := anthropic.BetaModelListParams{}
 	var res []byte
 	_, err := cc.client.Beta.Models.List(

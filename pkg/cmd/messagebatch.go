@@ -1530,10 +1530,6 @@ var messagesBatchesResults = cli.Command{
 
 func handleMessagesBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	params := anthropic.MessageBatchNewParams{}
 	var res []byte
 	_, err := cc.client.Messages.Batches.New(
@@ -1554,14 +1550,6 @@ func handleMessagesBatchesCreate(ctx context.Context, cmd *cli.Command) error {
 
 func handleMessagesBatchesRetrieve(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("message-batch-id") && len(unusedArgs) > 0 {
-		cmd.Set("message-batch-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	var res []byte
 	_, err := cc.client.Messages.Batches.Get(
 		context.TODO(),
@@ -1581,10 +1569,6 @@ func handleMessagesBatchesRetrieve(ctx context.Context, cmd *cli.Command) error 
 
 func handleMessagesBatchesList(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	params := anthropic.MessageBatchListParams{}
 	var res []byte
 	_, err := cc.client.Messages.Batches.List(
@@ -1605,14 +1589,6 @@ func handleMessagesBatchesList(ctx context.Context, cmd *cli.Command) error {
 
 func handleMessagesBatchesDelete(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("message-batch-id") && len(unusedArgs) > 0 {
-		cmd.Set("message-batch-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	var res []byte
 	_, err := cc.client.Messages.Batches.Delete(
 		context.TODO(),
@@ -1632,14 +1608,6 @@ func handleMessagesBatchesDelete(ctx context.Context, cmd *cli.Command) error {
 
 func handleMessagesBatchesCancel(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("message-batch-id") && len(unusedArgs) > 0 {
-		cmd.Set("message-batch-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	var res []byte
 	_, err := cc.client.Messages.Batches.Cancel(
 		context.TODO(),
@@ -1659,14 +1627,6 @@ func handleMessagesBatchesCancel(ctx context.Context, cmd *cli.Command) error {
 
 func handleMessagesBatchesResults(ctx context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
-	unusedArgs := cmd.Args().Slice()
-	if !cmd.IsSet("message-batch-id") && len(unusedArgs) > 0 {
-		cmd.Set("message-batch-id", unusedArgs[0])
-		unusedArgs = unusedArgs[1:]
-	}
-	if len(unusedArgs) > 0 {
-		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
-	}
 	stream := cc.client.Messages.Batches.ResultsStreaming(
 		context.TODO(),
 		cmd.Value("message-batch-id").(string),
