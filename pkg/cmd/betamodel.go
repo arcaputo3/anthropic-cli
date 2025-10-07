@@ -18,17 +18,20 @@ var betaModelsRetrieve = cli.Command{
 	Usage: "Get a specific model.",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
-			Name: "model-id",
+			Name:  "model-id",
+			Usage: "Model identifier or alias.",
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -44,35 +47,41 @@ var betaModelsList = cli.Command{
 	Usage: "List available models.",
 	Flags: []cli.Flag{
 		&jsonflag.JSONStringFlag{
-			Name: "after-id",
+			Name:  "after-id",
+			Usage: "ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Query,
 				Path: "after_id",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "before-id",
+			Name:  "before-id",
+			Usage: "ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Query,
 				Path: "before_id",
 			},
 		},
 		&jsonflag.JSONIntFlag{
-			Name: "limit",
+			Name:  "limit",
+			Usage: "Number of items to return per page.\n\nDefaults to `20`. Ranges from `1` to `1000`.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Query,
 				Path: "limit",
 			},
+			Value: 20,
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -83,7 +92,7 @@ var betaModelsList = cli.Command{
 	HideHelpCommand: true,
 }
 
-func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
+func handleBetaModelsRetrieve(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("model-id") && len(unusedArgs) > 0 {
@@ -112,7 +121,7 @@ func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	return ShowJSON("beta:models retrieve", json, format, transform)
 }
 
-func handleBetaModelsList(ctx context.Context, cmd *cli.Command) error {
+func handleBetaModelsList(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if len(unusedArgs) > 0 {

@@ -18,35 +18,41 @@ var betaFilesList = cli.Command{
 	Usage: "List Files",
 	Flags: []cli.Flag{
 		&jsonflag.JSONStringFlag{
-			Name: "after-id",
+			Name:  "after-id",
+			Usage: "ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Query,
 				Path: "after_id",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "before-id",
+			Name:  "before-id",
+			Usage: "ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Query,
 				Path: "before_id",
 			},
 		},
 		&jsonflag.JSONIntFlag{
-			Name: "limit",
+			Name:  "limit",
+			Usage: "Number of items to return per page.\n\nDefaults to `20`. Ranges from `1` to `1000`.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Query,
 				Path: "limit",
 			},
+			Value: 20,
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -62,17 +68,20 @@ var betaFilesDelete = cli.Command{
 	Usage: "Delete File",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
-			Name: "file-id",
+			Name:  "file-id",
+			Usage: "ID of the File.",
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -88,17 +97,20 @@ var betaFilesDownload = cli.Command{
 	Usage: "Download File",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
-			Name: "file-id",
+			Name:  "file-id",
+			Usage: "ID of the File.",
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -114,17 +126,20 @@ var betaFilesRetrieveMetadata = cli.Command{
 	Usage: "Get File Metadata",
 	Flags: []cli.Flag{
 		&cli.StringFlag{
-			Name: "file-id",
+			Name:  "file-id",
+			Usage: "ID of the File.",
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -140,21 +155,24 @@ var betaFilesUpload = cli.Command{
 	Usage: "Upload File",
 	Flags: []cli.Flag{
 		&jsonflag.JSONStringFlag{
-			Name: "file",
+			Name:  "file",
+			Usage: "The file to upload",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Body,
 				Path: "file",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "betas",
+			Name:  "betas",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.#",
 			},
 		},
 		&jsonflag.JSONStringFlag{
-			Name: "+beta",
+			Name:  "+beta",
+			Usage: "Optional header to specify the beta version(s) you want to use.",
 			Config: jsonflag.JSONConfig{
 				Kind: jsonflag.Header,
 				Path: "anthropic-beta.-1",
@@ -165,7 +183,7 @@ var betaFilesUpload = cli.Command{
 	HideHelpCommand: true,
 }
 
-func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
+func handleBetaFilesList(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if len(unusedArgs) > 0 {
@@ -189,7 +207,7 @@ func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 	return ShowJSON("beta:files list", json, format, transform)
 }
 
-func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
+func handleBetaFilesDelete(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
@@ -218,7 +236,7 @@ func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	return ShowJSON("beta:files delete", json, format, transform)
 }
 
-func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
+func handleBetaFilesDownload(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
@@ -247,7 +265,7 @@ func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 	return ShowJSON("beta:files download", json, format, transform)
 }
 
-func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) error {
+func handleBetaFilesRetrieveMetadata(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if !cmd.IsSet("file-id") && len(unusedArgs) > 0 {
@@ -276,7 +294,7 @@ func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) erro
 	return ShowJSON("beta:files retrieve-metadata", json, format, transform)
 }
 
-func handleBetaFilesUpload(ctx context.Context, cmd *cli.Command) error {
+func handleBetaFilesUpload(_ context.Context, cmd *cli.Command) error {
 	cc := getAPICommandContext(cmd)
 	unusedArgs := cmd.Args().Slice()
 	if len(unusedArgs) > 0 {
