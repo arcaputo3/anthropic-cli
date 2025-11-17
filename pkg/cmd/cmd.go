@@ -68,13 +68,6 @@ func init() {
 		},
 		Commands: []*cli.Command{
 			{
-				Name:     "completions",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&completionsCreate,
-				},
-			},
-			{
 				Name:     "messages",
 				Category: "API RESOURCE",
 				Commands: []*cli.Command{
@@ -91,71 +84,6 @@ func init() {
 					&messagesBatchesList,
 					&messagesBatchesDelete,
 					&messagesBatchesCancel,
-				},
-			},
-			{
-				Name:     "models",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&modelsRetrieve,
-					&modelsList,
-				},
-			},
-			{
-				Name:     "beta:models",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&betaModelsRetrieve,
-					&betaModelsList,
-				},
-			},
-			{
-				Name:     "beta:messages",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&betaMessagesCreate,
-					&betaMessagesCountTokens,
-				},
-			},
-			{
-				Name:     "beta:messages:batches",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&betaMessagesBatchesCreate,
-					&betaMessagesBatchesRetrieve,
-					&betaMessagesBatchesList,
-					&betaMessagesBatchesDelete,
-					&betaMessagesBatchesCancel,
-				},
-			},
-			{
-				Name:     "beta:files",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&betaFilesList,
-					&betaFilesDelete,
-					&betaFilesRetrieveMetadata,
-					&betaFilesUpload,
-				},
-			},
-			{
-				Name:     "beta:skills",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&betaSkillsCreate,
-					&betaSkillsRetrieve,
-					&betaSkillsList,
-					&betaSkillsDelete,
-				},
-			},
-			{
-				Name:     "beta:skills:versions",
-				Category: "API RESOURCE",
-				Commands: []*cli.Command{
-					&betaSkillsVersionsCreate,
-					&betaSkillsVersionsRetrieve,
-					&betaSkillsVersionsList,
-					&betaSkillsVersionsDelete,
 				},
 			},
 			{

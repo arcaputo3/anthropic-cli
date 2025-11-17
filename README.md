@@ -27,10 +27,22 @@ anthropic-cli [resource] [command] [flags]
 ```sh
 anthropic-cli messages create \
   --max-tokens 1024 \
-  --messages.content.text x \
-  --messages.content.type text \
-  --messages.role user \
-  --model claude-sonnet-4-5-20250929
+  --model claude-sonnet-4-5-20250929 \
+<<JSON
+{
+  "messages": [
+    {
+      "content": [
+        {
+          "text": "x",
+          "type": "text"
+        }
+      ],
+      "role": "user"
+    }
+  ]
+}
+JSON
 ```
 
 For details about specific commands, use the `--help` flag.
