@@ -4,12 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
+	"log"
 	"mime/multipart"
 	"os"
 
 	"github.com/anthropics/anthropic-sdk-go/option"
 	"github.com/stainless-sdks/anthropic-cli/internal/apiform"
 	"github.com/stainless-sdks/anthropic-cli/internal/apiquery"
+	"github.com/stainless-sdks/anthropic-cli/internal/debugmiddleware"
 	"github.com/stainless-sdks/anthropic-cli/internal/requestflag"
 
 	"github.com/urfave/cli/v3"
@@ -30,7 +32,7 @@ func flagOptions(
 ) ([]option.RequestOption, error) {
 	var options []option.RequestOption
 	if cmd.Bool("debug") {
-		options = append(options, debugMiddlewareOption)
+		options = append(options, option.WithMiddleware(debugmiddleware.DebugMiddleware(log.Default())))
 	}
 
 	queries := make(map[string]any)
