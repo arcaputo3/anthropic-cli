@@ -131,7 +131,7 @@ func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -179,7 +179,7 @@ func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -219,7 +219,7 @@ func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -259,7 +259,7 @@ func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) erro
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err

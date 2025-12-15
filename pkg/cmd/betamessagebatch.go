@@ -184,7 +184,7 @@ func handleBetaMessagesBatchesRetrieve(ctx context.Context, cmd *cli.Command) er
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -221,7 +221,7 @@ func handleBetaMessagesBatchesList(ctx context.Context, cmd *cli.Command) error 
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -269,7 +269,7 @@ func handleBetaMessagesBatchesDelete(ctx context.Context, cmd *cli.Command) erro
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -309,7 +309,7 @@ func handleBetaMessagesBatchesCancel(ctx context.Context, cmd *cli.Command) erro
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
@@ -349,7 +349,7 @@ func handleBetaMessagesBatchesResults(ctx context.Context, cmd *cli.Command) err
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
-		ApplicationJSON,
+		EmptyBody,
 	)
 	if err != nil {
 		return err
