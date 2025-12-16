@@ -23,6 +23,7 @@ func init() {
 	Command = &cli.Command{
 		Name:    "cdp",
 		Usage:   "CLI for the anthropic API",
+		Suggest: true,
 		Version: Version,
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
