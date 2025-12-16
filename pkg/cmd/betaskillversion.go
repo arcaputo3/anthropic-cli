@@ -120,6 +120,7 @@ func handleBetaSkillsVersionsCreate(ctx context.Context, cmd *cli.Command) error
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillVersionNewParams{}
 
 	options, err := flagOptions(
@@ -127,6 +128,7 @@ func handleBetaSkillsVersionsCreate(ctx context.Context, cmd *cli.Command) error
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		MultipartFormEncoded,
+		false,
 	)
 	if err != nil {
 		return err
@@ -160,6 +162,7 @@ func handleBetaSkillsVersionsRetrieve(ctx context.Context, cmd *cli.Command) err
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillVersionGetParams{
 		SkillID: cmd.Value("skill-id").(string),
 	}
@@ -169,6 +172,7 @@ func handleBetaSkillsVersionsRetrieve(ctx context.Context, cmd *cli.Command) err
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -202,6 +206,7 @@ func handleBetaSkillsVersionsList(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillVersionListParams{}
 
 	options, err := flagOptions(
@@ -209,6 +214,7 @@ func handleBetaSkillsVersionsList(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -260,6 +266,7 @@ func handleBetaSkillsVersionsDelete(ctx context.Context, cmd *cli.Command) error
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillVersionDeleteParams{
 		SkillID: cmd.Value("skill-id").(string),
 	}
@@ -269,6 +276,7 @@ func handleBetaSkillsVersionsDelete(ctx context.Context, cmd *cli.Command) error
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err

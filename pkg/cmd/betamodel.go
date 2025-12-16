@@ -73,6 +73,7 @@ func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaModelGetParams{}
 
 	options, err := flagOptions(
@@ -80,6 +81,7 @@ func handleBetaModelsRetrieve(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -110,6 +112,7 @@ func handleBetaModelsList(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaModelListParams{}
 
 	options, err := flagOptions(
@@ -117,6 +120,7 @@ func handleBetaModelsList(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err

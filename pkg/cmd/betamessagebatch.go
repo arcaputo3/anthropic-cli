@@ -143,6 +143,7 @@ func handleBetaMessagesBatchesCreate(ctx context.Context, cmd *cli.Command) erro
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageBatchNewParams{}
 
 	options, err := flagOptions(
@@ -150,6 +151,7 @@ func handleBetaMessagesBatchesCreate(ctx context.Context, cmd *cli.Command) erro
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		ApplicationJSON,
+		false,
 	)
 	if err != nil {
 		return err
@@ -178,6 +180,7 @@ func handleBetaMessagesBatchesRetrieve(ctx context.Context, cmd *cli.Command) er
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageBatchGetParams{}
 
 	options, err := flagOptions(
@@ -185,6 +188,7 @@ func handleBetaMessagesBatchesRetrieve(ctx context.Context, cmd *cli.Command) er
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -215,6 +219,7 @@ func handleBetaMessagesBatchesList(ctx context.Context, cmd *cli.Command) error 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageBatchListParams{}
 
 	options, err := flagOptions(
@@ -222,6 +227,7 @@ func handleBetaMessagesBatchesList(ctx context.Context, cmd *cli.Command) error 
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -263,6 +269,7 @@ func handleBetaMessagesBatchesDelete(ctx context.Context, cmd *cli.Command) erro
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageBatchDeleteParams{}
 
 	options, err := flagOptions(
@@ -270,6 +277,7 @@ func handleBetaMessagesBatchesDelete(ctx context.Context, cmd *cli.Command) erro
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -303,6 +311,7 @@ func handleBetaMessagesBatchesCancel(ctx context.Context, cmd *cli.Command) erro
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageBatchCancelParams{}
 
 	options, err := flagOptions(
@@ -310,6 +319,7 @@ func handleBetaMessagesBatchesCancel(ctx context.Context, cmd *cli.Command) erro
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -343,6 +353,7 @@ func handleBetaMessagesBatchesResults(ctx context.Context, cmd *cli.Command) err
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageBatchResultsParams{}
 
 	options, err := flagOptions(
@@ -350,6 +361,7 @@ func handleBetaMessagesBatchesResults(ctx context.Context, cmd *cli.Command) err
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err

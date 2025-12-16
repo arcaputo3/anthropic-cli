@@ -188,6 +188,7 @@ func handleBetaMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageNewParams{}
 
 	options, err := flagOptions(
@@ -195,6 +196,7 @@ func handleBetaMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		ApplicationJSON,
+		false,
 	)
 	if err != nil {
 		return err
@@ -214,6 +216,7 @@ func handleBetaMessagesCountTokens(ctx context.Context, cmd *cli.Command) error 
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaMessageCountTokensParams{}
 
 	options, err := flagOptions(
@@ -221,6 +224,7 @@ func handleBetaMessagesCountTokens(ctx context.Context, cmd *cli.Command) error 
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		ApplicationJSON,
+		false,
 	)
 	if err != nil {
 		return err

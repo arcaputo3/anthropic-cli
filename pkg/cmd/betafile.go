@@ -125,6 +125,7 @@ func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaFileListParams{}
 
 	options, err := flagOptions(
@@ -132,6 +133,7 @@ func handleBetaFilesList(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -173,6 +175,7 @@ func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaFileDeleteParams{}
 
 	options, err := flagOptions(
@@ -180,6 +183,7 @@ func handleBetaFilesDelete(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -213,6 +217,7 @@ func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaFileDownloadParams{}
 
 	options, err := flagOptions(
@@ -220,6 +225,7 @@ func handleBetaFilesDownload(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -253,6 +259,7 @@ func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) erro
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaFileGetMetadataParams{}
 
 	options, err := flagOptions(
@@ -260,6 +267,7 @@ func handleBetaFilesRetrieveMetadata(ctx context.Context, cmd *cli.Command) erro
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -290,6 +298,7 @@ func handleBetaFilesUpload(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaFileUploadParams{}
 
 	options, err := flagOptions(
@@ -297,6 +306,7 @@ func handleBetaFilesUpload(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		MultipartFormEncoded,
+		false,
 	)
 	if err != nil {
 		return err

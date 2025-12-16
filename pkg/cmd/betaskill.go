@@ -112,6 +112,7 @@ func handleBetaSkillsCreate(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillNewParams{}
 
 	options, err := flagOptions(
@@ -119,6 +120,7 @@ func handleBetaSkillsCreate(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		MultipartFormEncoded,
+		false,
 	)
 	if err != nil {
 		return err
@@ -147,6 +149,7 @@ func handleBetaSkillsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillGetParams{}
 
 	options, err := flagOptions(
@@ -154,6 +157,7 @@ func handleBetaSkillsRetrieve(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -184,6 +188,7 @@ func handleBetaSkillsList(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillListParams{}
 
 	options, err := flagOptions(
@@ -191,6 +196,7 @@ func handleBetaSkillsList(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
@@ -232,6 +238,7 @@ func handleBetaSkillsDelete(ctx context.Context, cmd *cli.Command) error {
 	if len(unusedArgs) > 0 {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
+
 	params := anthropic.BetaSkillDeleteParams{}
 
 	options, err := flagOptions(
@@ -239,6 +246,7 @@ func handleBetaSkillsDelete(ctx context.Context, cmd *cli.Command) error {
 		apiquery.NestedQueryFormatBrackets,
 		apiquery.ArrayQueryFormatComma,
 		EmptyBody,
+		false,
 	)
 	if err != nil {
 		return err
