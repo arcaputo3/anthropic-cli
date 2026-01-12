@@ -16,8 +16,9 @@ import (
 )
 
 var messagesBatchesCreate = requestflag.WithInnerFlags(cli.Command{
-	Name:  "create",
-	Usage: "Send a batch of Message creation requests.",
+	Name:    "create",
+	Usage:   "Send a batch of Message creation requests.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "request",
@@ -44,8 +45,9 @@ var messagesBatchesCreate = requestflag.WithInnerFlags(cli.Command{
 })
 
 var messagesBatchesRetrieve = cli.Command{
-	Name:  "retrieve",
-	Usage: "This endpoint is idempotent and can be used to poll for Message Batch\ncompletion. To access the results of a Message Batch, make a request to the\n`results_url` field in the response.",
+	Name:    "retrieve",
+	Usage:   "This endpoint is idempotent and can be used to poll for Message Batch\ncompletion. To access the results of a Message Batch, make a request to the\n`results_url` field in the response.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "message-batch-id",
@@ -58,8 +60,9 @@ var messagesBatchesRetrieve = cli.Command{
 }
 
 var messagesBatchesList = cli.Command{
-	Name:  "list",
-	Usage: "List all Message Batches within a Workspace. Most recently created batches are\nreturned first.",
+	Name:    "list",
+	Usage:   "List all Message Batches within a Workspace. Most recently created batches are\nreturned first.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:      "after-id",
@@ -83,8 +86,9 @@ var messagesBatchesList = cli.Command{
 }
 
 var messagesBatchesDelete = cli.Command{
-	Name:  "delete",
-	Usage: "Delete a Message Batch.",
+	Name:    "delete",
+	Usage:   "Delete a Message Batch.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "message-batch-id",
@@ -97,8 +101,9 @@ var messagesBatchesDelete = cli.Command{
 }
 
 var messagesBatchesCancel = cli.Command{
-	Name:  "cancel",
-	Usage: "Batches may be canceled any time before processing ends. Once cancellation is\ninitiated, the batch enters a `canceling` state, at which time the system may\ncomplete any in-progress, non-interruptible requests before finalizing\ncancellation.",
+	Name:    "cancel",
+	Usage:   "Batches may be canceled any time before processing ends. Once cancellation is\ninitiated, the batch enters a `canceling` state, at which time the system may\ncomplete any in-progress, non-interruptible requests before finalizing\ncancellation.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "message-batch-id",
@@ -111,8 +116,9 @@ var messagesBatchesCancel = cli.Command{
 }
 
 var messagesBatchesResults = cli.Command{
-	Name:  "results",
-	Usage: "Streams the results of a Message Batch as a `.jsonl` file.",
+	Name:    "results",
+	Usage:   "Streams the results of a Message Batch as a `.jsonl` file.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "message-batch-id",

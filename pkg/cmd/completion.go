@@ -14,8 +14,9 @@ import (
 )
 
 var completionsCreate = requestflag.WithInnerFlags(cli.Command{
-	Name:  "create",
-	Usage: "[Legacy] Create a Text Completion.",
+	Name:    "create",
+	Usage:   "[Legacy] Create a Text Completion.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[int64]{
 			Name:     "max-tokens-to-sample",

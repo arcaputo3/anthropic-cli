@@ -70,6 +70,7 @@ func init() {
 			{
 				Name:     "completions",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&completionsCreate,
 				},
@@ -77,6 +78,7 @@ func init() {
 			{
 				Name:     "messages",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&messagesCreate,
 					&messagesCountTokens,
@@ -85,6 +87,7 @@ func init() {
 			{
 				Name:     "messages:batches",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&messagesBatchesCreate,
 					&messagesBatchesRetrieve,
@@ -97,6 +100,7 @@ func init() {
 			{
 				Name:     "models",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&modelsRetrieve,
 					&modelsList,
@@ -105,6 +109,7 @@ func init() {
 			{
 				Name:     "beta:models",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaModelsRetrieve,
 					&betaModelsList,
@@ -113,6 +118,7 @@ func init() {
 			{
 				Name:     "beta:messages",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaMessagesCreate,
 					&betaMessagesCountTokens,
@@ -121,6 +127,7 @@ func init() {
 			{
 				Name:     "beta:messages:batches",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaMessagesBatchesCreate,
 					&betaMessagesBatchesRetrieve,
@@ -133,6 +140,7 @@ func init() {
 			{
 				Name:     "beta:files",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaFilesList,
 					&betaFilesDelete,
@@ -143,6 +151,7 @@ func init() {
 			{
 				Name:     "beta:skills",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaSkillsCreate,
 					&betaSkillsRetrieve,
@@ -153,6 +162,7 @@ func init() {
 			{
 				Name:     "beta:skills:versions",
 				Category: "API RESOURCE",
+				Suggest:  true,
 				Commands: []*cli.Command{
 					&betaSkillsVersionsCreate,
 					&betaSkillsVersionsRetrieve,

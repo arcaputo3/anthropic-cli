@@ -16,8 +16,9 @@ import (
 )
 
 var betaFilesList = cli.Command{
-	Name:  "list",
-	Usage: "List Files",
+	Name:    "list",
+	Usage:   "List Files",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:      "after-id",
@@ -46,8 +47,9 @@ var betaFilesList = cli.Command{
 }
 
 var betaFilesDelete = cli.Command{
-	Name:  "delete",
-	Usage: "Delete File",
+	Name:    "delete",
+	Usage:   "Delete File",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "file-id",
@@ -65,8 +67,9 @@ var betaFilesDelete = cli.Command{
 }
 
 var betaFilesRetrieveMetadata = cli.Command{
-	Name:  "retrieve-metadata",
-	Usage: "Get File Metadata",
+	Name:    "retrieve-metadata",
+	Usage:   "Get File Metadata",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "file-id",
@@ -84,8 +87,9 @@ var betaFilesRetrieveMetadata = cli.Command{
 }
 
 var betaFilesUpload = cli.Command{
-	Name:  "upload",
-	Usage: "Upload File",
+	Name:    "upload",
+	Usage:   "Upload File",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "file",

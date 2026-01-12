@@ -16,8 +16,9 @@ import (
 )
 
 var messagesCreate = requestflag.WithInnerFlags(cli.Command{
-	Name:  "create",
-	Usage: "Send a structured list of input messages with text and/or image content, and the\nmodel will generate the next message in the conversation.",
+	Name:    "create",
+	Usage:   "Send a structured list of input messages with text and/or image content, and the\nmodel will generate the next message in the conversation.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[int64]{
 			Name:     "max-tokens",
@@ -115,8 +116,9 @@ var messagesCreate = requestflag.WithInnerFlags(cli.Command{
 })
 
 var messagesCountTokens = requestflag.WithInnerFlags(cli.Command{
-	Name:  "count-tokens",
-	Usage: "Count the number of tokens in a Message.",
+	Name:    "count-tokens",
+	Usage:   "Count the number of tokens in a Message.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[[]map[string]any]{
 			Name:     "message",

@@ -16,8 +16,9 @@ import (
 )
 
 var betaModelsRetrieve = cli.Command{
-	Name:  "retrieve",
-	Usage: "Get a specific model.",
+	Name:    "retrieve",
+	Usage:   "Get a specific model.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "model-id",
@@ -35,8 +36,9 @@ var betaModelsRetrieve = cli.Command{
 }
 
 var betaModelsList = cli.Command{
-	Name:  "list",
-	Usage: "List available models.",
+	Name:    "list",
+	Usage:   "List available models.",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:      "after-id",

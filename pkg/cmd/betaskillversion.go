@@ -16,8 +16,9 @@ import (
 )
 
 var betaSkillsVersionsCreate = cli.Command{
-	Name:  "create",
-	Usage: "Create Skill Version",
+	Name:    "create",
+	Usage:   "Create Skill Version",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "skill-id",
@@ -40,8 +41,9 @@ var betaSkillsVersionsCreate = cli.Command{
 }
 
 var betaSkillsVersionsRetrieve = cli.Command{
-	Name:  "retrieve",
-	Usage: "Get Skill Version",
+	Name:    "retrieve",
+	Usage:   "Get Skill Version",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "skill-id",
@@ -64,8 +66,9 @@ var betaSkillsVersionsRetrieve = cli.Command{
 }
 
 var betaSkillsVersionsList = cli.Command{
-	Name:  "list",
-	Usage: "List Skill Versions",
+	Name:    "list",
+	Usage:   "List Skill Versions",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "skill-id",
@@ -93,8 +96,9 @@ var betaSkillsVersionsList = cli.Command{
 }
 
 var betaSkillsVersionsDelete = cli.Command{
-	Name:  "delete",
-	Usage: "Delete Skill Version",
+	Name:    "delete",
+	Usage:   "Delete Skill Version",
+	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
 			Name:     "skill-id",
