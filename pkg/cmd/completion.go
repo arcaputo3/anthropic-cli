@@ -8,8 +8,10 @@ import (
 	"os"
 
 	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 	"github.com/stainless-sdks/anthropic-cli/internal/apiquery"
 	"github.com/stainless-sdks/anthropic-cli/internal/requestflag"
+	"github.com/tidwall/gjson"
 	"github.com/urfave/cli/v3"
 )
 
@@ -106,6 +108,18 @@ func handleCompletionsCreate(ctx context.Context, cmd *cli.Command) error {
 
 	format := cmd.Root().String("format")
 	transform := cmd.Root().String("transform")
-	stream := client.Completions.NewStreaming(ctx, params, options...)
-	return ShowJSONIterator(os.Stdout, "completions create", stream, format, transform)
+	if cmd.Bool("stream") {
+		stream := client.Completions.NewStreaming(ctx, params, options...)
+		return ShowJSONIterator(os.Stdout, "completions create", stream, format, transform)
+	} else {
+		var res []byte
+		options = append(options, option.WithResponseBodyInto(&res))
+		_, err = client.Completions.New(ctx, params, options...)
+		if err != nil {
+			return err
+		}
+
+		obj := gjson.ParseBytes(res)
+		return ShowJSON(os.Stdout, "completions create", obj, format, transform)
+	}
 }

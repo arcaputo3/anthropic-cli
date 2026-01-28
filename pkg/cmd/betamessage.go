@@ -342,8 +342,20 @@ func handleBetaMessagesCreate(ctx context.Context, cmd *cli.Command) error {
 
 	format := cmd.Root().String("format")
 	transform := cmd.Root().String("transform")
-	stream := client.Beta.Messages.NewStreaming(ctx, params, options...)
-	return ShowJSONIterator(os.Stdout, "beta:messages create", stream, format, transform)
+	if cmd.Bool("stream") {
+		stream := client.Beta.Messages.NewStreaming(ctx, params, options...)
+		return ShowJSONIterator(os.Stdout, "beta:messages create", stream, format, transform)
+	} else {
+		var res []byte
+		options = append(options, option.WithResponseBodyInto(&res))
+		_, err = client.Beta.Messages.New(ctx, params, options...)
+		if err != nil {
+			return err
+		}
+
+		obj := gjson.ParseBytes(res)
+		return ShowJSON(os.Stdout, "beta:messages create", obj, format, transform)
+	}
 }
 
 func handleBetaMessagesCountTokens(ctx context.Context, cmd *cli.Command) error {
