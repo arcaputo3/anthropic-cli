@@ -25,7 +25,7 @@ var betaSkillsVersionsCreate = cli.Command{
 			Usage:    "Unique identifier for the skill.\n\nThe format and length of IDs may change over time.",
 			Required: true,
 		},
-		&requestflag.Flag[[]string]{
+		&requestflag.Flag[any]{
 			Name:     "file",
 			Usage:    "Files to upload for the skill.\n\nAll files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.",
 			BodyPath: "files",
@@ -75,12 +75,12 @@ var betaSkillsVersionsList = cli.Command{
 			Usage:    "Unique identifier for the skill.\n\nThe format and length of IDs may change over time.",
 			Required: true,
 		},
-		&requestflag.Flag[int64]{
+		&requestflag.Flag[any]{
 			Name:      "limit",
 			Usage:     "Number of items to return per page.\n\nDefaults to `20`. Ranges from `1` to `1000`.",
 			QueryPath: "limit",
 		},
-		&requestflag.Flag[string]{
+		&requestflag.Flag[any]{
 			Name:      "page",
 			Usage:     "Optionally set to the `next_page` token from the previous response.",
 			QueryPath: "page",

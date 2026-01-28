@@ -153,7 +153,7 @@ var betaMessagesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:       "mcp-server.url",
 			InnerField: "url",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "mcp-server.authorization-token",
 			InnerField: "authorization_token",
 		},
@@ -163,14 +163,14 @@ var betaMessagesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"metadata": {
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "metadata.user-id",
 			Usage:      "An external identifier for the user who is associated with the request.\n\nThis should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.",
 			InnerField: "user_id",
 		},
 	},
 	"output-config": {
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "output-config.effort",
 			Usage:      "All possible effort levels.",
 			InnerField: "effort",
@@ -286,7 +286,7 @@ var betaMessagesCountTokens = requestflag.WithInnerFlags(cli.Command{
 			Name:       "mcp-server.url",
 			InnerField: "url",
 		},
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "mcp-server.authorization-token",
 			InnerField: "authorization_token",
 		},
@@ -296,7 +296,7 @@ var betaMessagesCountTokens = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"output-config": {
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "output-config.effort",
 			Usage:      "All possible effort levels.",
 			InnerField: "effort",

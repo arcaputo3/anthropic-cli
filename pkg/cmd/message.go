@@ -107,7 +107,7 @@ var messagesCreate = requestflag.WithInnerFlags(cli.Command{
 		},
 	},
 	"metadata": {
-		&requestflag.InnerFlag[string]{
+		&requestflag.InnerFlag[any]{
 			Name:       "metadata.user-id",
 			Usage:      "An external identifier for the user who is associated with the request.\n\nThis should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.",
 			InnerField: "user_id",
