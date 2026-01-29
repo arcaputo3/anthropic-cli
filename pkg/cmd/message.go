@@ -42,6 +42,10 @@ var messagesCreate = requestflag.WithInnerFlags(cli.Command{
 			Name:     "metadata",
 			BodyPath: "metadata",
 		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "output-config",
+			BodyPath: "output_config",
+		},
 		&requestflag.Flag[string]{
 			Name:     "service-tier",
 			Usage:    "Determines whether to use priority capacity (if available) or standard capacity for this request.\n\nAnthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.",
@@ -113,6 +117,12 @@ var messagesCreate = requestflag.WithInnerFlags(cli.Command{
 			InnerField: "user_id",
 		},
 	},
+	"output-config": {
+		&requestflag.InnerFlag[map[string]any]{
+			Name:       "output-config.format",
+			InnerField: "format",
+		},
+	},
 })
 
 var messagesCountTokens = requestflag.WithInnerFlags(cli.Command{
@@ -131,6 +141,10 @@ var messagesCountTokens = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "The model that will complete your prompt.\\n\\nSee [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.",
 			Required: true,
 			BodyPath: "model",
+		},
+		&requestflag.Flag[map[string]any]{
+			Name:     "output-config",
+			BodyPath: "output_config",
 		},
 		&requestflag.Flag[any]{
 			Name:     "system",
@@ -164,6 +178,12 @@ var messagesCountTokens = requestflag.WithInnerFlags(cli.Command{
 		&requestflag.InnerFlag[string]{
 			Name:       "message.role",
 			InnerField: "role",
+		},
+	},
+	"output-config": {
+		&requestflag.InnerFlag[map[string]any]{
+			Name:       "output-config.format",
+			InnerField: "format",
 		},
 	},
 })

@@ -172,7 +172,7 @@ var betaMessagesCreate = requestflag.WithInnerFlags(cli.Command{
 	"output-config": {
 		&requestflag.InnerFlag[any]{
 			Name:       "output-config.effort",
-			Usage:      "All possible effort levels.",
+			Usage:      "How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.\n\nValid values are `low`, `medium`, or `high`.",
 			InnerField: "effort",
 		},
 		&requestflag.InnerFlag[map[string]any]{
@@ -298,7 +298,7 @@ var betaMessagesCountTokens = requestflag.WithInnerFlags(cli.Command{
 	"output-config": {
 		&requestflag.InnerFlag[any]{
 			Name:       "output-config.effort",
-			Usage:      "All possible effort levels.",
+			Usage:      "How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.\n\nValid values are `low`, `medium`, or `high`.",
 			InnerField: "effort",
 		},
 		&requestflag.InnerFlag[map[string]any]{

@@ -30,6 +30,7 @@ cdp messages create \
   --message '{content: [{text: x, type: text, cache_control: {type: ephemeral, ttl: 5m}, citations: [{cited_text: cited_text, document_index: 0, document_title: x, end_char_index: 0, start_char_index: 0, type: char_location}]}], role: user}' \
   --model claude-sonnet-4-5-20250929 \
   --metadata '{user_id: 13803d75-b4b5-4c3e-b2a2-6f21399b021b}' \
+  --output-config '{format: {schema: {foo: bar}, type: json_schema}}' \
   --service-tier auto \
   --stop-sequence string \
   --stream false \
@@ -37,7 +38,7 @@ cdp messages create \
   --temperature 1 \
   --thinking '{budget_tokens: 1024, type: enabled}' \
   --tool-choice '{type: auto, disable_parallel_tool_use: true}' \
-  --tool '{name: name, cache_control: {type: ephemeral, ttl: 5m}, description: Get the current weather in a given location, type: custom}' \
+  --tool '{name: name, cache_control: {type: ephemeral, ttl: 5m}, description: Get the current weather in a given location, strict: true, type: custom}' \
   --top-k 5 \
   --top-p 0.7
 ```
