@@ -7,8 +7,7 @@ The official CLI for the [Anthropic REST API](https://docs.anthropic.com/claude/
 ### Installing with Homebrew
 
 ```sh
-brew tap anthropics/tap
-brew install ant
+brew install anthropics/tap/ant
 ```
 
 ### Installing with Go
