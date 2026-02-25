@@ -1,0 +1,49 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package cmd
+
+import (
+	"testing"
+
+	"github.com/stainless-sdks/anthropic-cli/internal/mocktest"
+)
+
+func TestBetaSkillsCreate(t *testing.T) {
+	t.Skip("prism binary unsupported")
+	mocktest.TestRunMockTestWithFlags(
+		t,
+		"beta:skills", "create",
+		"--display-title", "display_title",
+		"--file", "[null]",
+		"--beta", "message-batches-2024-09-24",
+	)
+}
+
+func TestBetaSkillsRetrieve(t *testing.T) {
+	mocktest.TestRunMockTestWithFlags(
+		t,
+		"beta:skills", "retrieve",
+		"--skill-id", "skill_id",
+		"--beta", "message-batches-2024-09-24",
+	)
+}
+
+func TestBetaSkillsList(t *testing.T) {
+	mocktest.TestRunMockTestWithFlags(
+		t,
+		"beta:skills", "list",
+		"--limit", "0",
+		"--page", "page",
+		"--source", "source",
+		"--beta", "message-batches-2024-09-24",
+	)
+}
+
+func TestBetaSkillsDelete(t *testing.T) {
+	mocktest.TestRunMockTestWithFlags(
+		t,
+		"beta:skills", "delete",
+		"--skill-id", "skill_id",
+		"--beta", "message-batches-2024-09-24",
+	)
+}
