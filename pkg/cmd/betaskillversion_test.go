@@ -9,7 +9,6 @@ import (
 )
 
 func TestBetaSkillsVersionsCreate(t *testing.T) {
-	t.Skip("prism binary unsupported")
 	mocktest.TestRunMockTestWithFlags(
 		t,
 		"beta:skills:versions", "create",
