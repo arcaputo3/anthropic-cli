@@ -11,8 +11,9 @@ import (
 func TestBetaSkillsCreate(t *testing.T) {
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
-			t, "beta:skills", "create",
+			t,
 			"--api-key", "string",
+			"beta:skills", "create",
 			"--display-title", "display_title",
 			"--file", "[Example data]",
 			"--beta", "message-batches-2024-09-24",
@@ -26,8 +27,9 @@ func TestBetaSkillsCreate(t *testing.T) {
 			"files:\n" +
 			"  - Example data\n")
 		mocktest.TestRunMockTestWithPipeAndFlags(
-			t, pipeData, "beta:skills", "create",
+			t, pipeData,
 			"--api-key", "string",
+			"beta:skills", "create",
 			"--beta", "message-batches-2024-09-24",
 		)
 	})
@@ -36,8 +38,9 @@ func TestBetaSkillsCreate(t *testing.T) {
 func TestBetaSkillsRetrieve(t *testing.T) {
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
-			t, "beta:skills", "retrieve",
+			t,
 			"--api-key", "string",
+			"beta:skills", "retrieve",
 			"--skill-id", "skill_id",
 			"--beta", "message-batches-2024-09-24",
 		)
@@ -47,8 +50,9 @@ func TestBetaSkillsRetrieve(t *testing.T) {
 func TestBetaSkillsList(t *testing.T) {
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
-			t, "beta:skills", "list",
+			t,
 			"--api-key", "string",
+			"beta:skills", "list",
 			"--max-items", "10",
 			"--limit", "0",
 			"--page", "page",
@@ -61,8 +65,9 @@ func TestBetaSkillsList(t *testing.T) {
 func TestBetaSkillsDelete(t *testing.T) {
 	t.Run("regular flags", func(t *testing.T) {
 		mocktest.TestRunMockTestWithFlags(
-			t, "beta:skills", "delete",
+			t,
 			"--api-key", "string",
+			"beta:skills", "delete",
 			"--skill-id", "skill_id",
 			"--beta", "message-batches-2024-09-24",
 		)
