@@ -1,4 +1,4 @@
-# Claude Developer Platform CLI
+# Claude Platform CLI
 
 The official CLI for the [Anthropic REST API](https://docs.anthropic.com/claude/reference/).
 
