@@ -31,7 +31,7 @@ var betaAgentsCreate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "name",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "description",
 			Usage:    "Description of what the agent does. Up to 2048 characters.",
 			BodyPath: "description",
@@ -51,7 +51,7 @@ var betaAgentsCreate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Skills available to the agent. Maximum 20.",
 			BodyPath: "skills",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "system",
 			Usage:    "System prompt for the agent. Up to 100,000 characters.",
 			BodyPath: "system",
@@ -95,8 +95,9 @@ var betaAgentsRetrieve = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "agent-id",
-			Required: true,
+			Name:      "agent-id",
+			Required:  true,
+			PathParam: "agent_id",
 		},
 		&requestflag.Flag[int64]{
 			Name:      "version",
@@ -119,8 +120,10 @@ var betaAgentsUpdate = requestflag.WithInnerFlags(cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "agent-id",
-			Required: true,
+			Name:        "agent-id",
+			Required:    true,
+			PathParam:   "agent_id",
+			DataAliases: []string{"id"},
 		},
 		&requestflag.Flag[int64]{
 			Name:     "version",
@@ -128,7 +131,7 @@ var betaAgentsUpdate = requestflag.WithInnerFlags(cli.Command{
 			Required: true,
 			BodyPath: "version",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "description",
 			Usage:    "Description. Up to 2048 characters. Omit to preserve; send empty string or null to clear.",
 			BodyPath: "description",
@@ -158,7 +161,7 @@ var betaAgentsUpdate = requestflag.WithInnerFlags(cli.Command{
 			Usage:    "Skills. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 20.",
 			BodyPath: "skills",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "system",
 			Usage:    "System prompt. Up to 100,000 characters. Omit to preserve; send empty string or null to clear.",
 			BodyPath: "system",
@@ -179,19 +182,22 @@ var betaAgentsUpdate = requestflag.WithInnerFlags(cli.Command{
 }, map[string][]requestflag.HasOuterFlag{
 	"mcp-server": {
 		&requestflag.InnerFlag[string]{
-			Name:       "mcp-server.name",
-			Usage:      "Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.",
-			InnerField: "name",
+			Name:                  "mcp-server.name",
+			Usage:                 "Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.",
+			InnerField:            "name",
+			OuterIsArrayOfObjects: true,
 		},
 		&requestflag.InnerFlag[string]{
-			Name:       "mcp-server.type",
-			Usage:      `Allowed values: "url".`,
-			InnerField: "type",
+			Name:                  "mcp-server.type",
+			Usage:                 `Allowed values: "url".`,
+			InnerField:            "type",
+			OuterIsArrayOfObjects: true,
 		},
 		&requestflag.InnerFlag[string]{
-			Name:       "mcp-server.url",
-			Usage:      "Endpoint URL for the MCP server.",
-			InnerField: "url",
+			Name:                  "mcp-server.url",
+			Usage:                 "Endpoint URL for the MCP server.",
+			InnerField:            "url",
+			OuterIsArrayOfObjects: true,
 		},
 	},
 })
@@ -246,8 +252,9 @@ var betaAgentsArchive = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "agent-id",
-			Required: true,
+			Name:      "agent-id",
+			Required:  true,
+			PathParam: "agent_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -267,8 +274,6 @@ func handleBetaAgentsCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaAgentNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -279,6 +284,8 @@ func handleBetaAgentsCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaAgentNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -311,8 +318,6 @@ func handleBetaAgentsRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaAgentGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -323,6 +328,8 @@ func handleBetaAgentsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaAgentGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -363,8 +370,6 @@ func handleBetaAgentsUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaAgentUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -375,6 +380,8 @@ func handleBetaAgentsUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaAgentUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -409,8 +416,6 @@ func handleBetaAgentsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaAgentListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -421,6 +426,8 @@ func handleBetaAgentsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaAgentListParams{}
 
 	format := "explore"
 	explicitFormat := cmd.Root().IsSet("format")
@@ -470,8 +477,6 @@ func handleBetaAgentsArchive(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaAgentArchiveParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -482,6 +487,8 @@ func handleBetaAgentsArchive(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaAgentArchiveParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

@@ -20,8 +20,9 @@ var betaVaultsCredentialsCreate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "auth",
@@ -29,7 +30,7 @@ var betaVaultsCredentialsCreate = cli.Command{
 			Required: true,
 			BodyPath: "auth",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			Usage:    "Human-readable name for the credential. Up to 255 characters.",
 			BodyPath: "display_name",
@@ -55,12 +56,14 @@ var betaVaultsCredentialsRetrieve = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "credential-id",
-			Required: true,
+			Name:      "credential-id",
+			Required:  true,
+			PathParam: "credential_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -78,19 +81,22 @@ var betaVaultsCredentialsUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "credential-id",
-			Required: true,
+			Name:        "credential-id",
+			Required:    true,
+			PathParam:   "credential_id",
+			DataAliases: []string{"id"},
 		},
 		&requestflag.Flag[map[string]any]{
 			Name:     "auth",
 			Usage:    "Updated authentication details for a credential.",
 			BodyPath: "auth",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			Usage:    "Updated human-readable name for the credential. 1-255 characters.",
 			BodyPath: "display_name",
@@ -116,8 +122,9 @@ var betaVaultsCredentialsList = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[bool]{
 			Name:      "include-archived",
@@ -154,12 +161,14 @@ var betaVaultsCredentialsDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "credential-id",
-			Required: true,
+			Name:      "credential-id",
+			Required:  true,
+			PathParam: "credential_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -177,12 +186,14 @@ var betaVaultsCredentialsArchive = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "credential-id",
-			Required: true,
+			Name:      "credential-id",
+			Required:  true,
+			PathParam: "credential_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -205,8 +216,6 @@ func handleBetaVaultsCredentialsCreate(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultCredentialNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -217,6 +226,8 @@ func handleBetaVaultsCredentialsCreate(ctx context.Context, cmd *cli.Command) er
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultCredentialNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -254,10 +265,6 @@ func handleBetaVaultsCredentialsRetrieve(ctx context.Context, cmd *cli.Command) 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultCredentialGetParams{
-		VaultID: cmd.Value("vault-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -267,6 +274,10 @@ func handleBetaVaultsCredentialsRetrieve(ctx context.Context, cmd *cli.Command) 
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaVaultCredentialGetParams{
+		VaultID: cmd.Value("vault-id").(string),
 	}
 
 	var res []byte
@@ -308,10 +319,6 @@ func handleBetaVaultsCredentialsUpdate(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultCredentialUpdateParams{
-		VaultID: cmd.Value("vault-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -321,6 +328,10 @@ func handleBetaVaultsCredentialsUpdate(ctx context.Context, cmd *cli.Command) er
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaVaultCredentialUpdateParams{
+		VaultID: cmd.Value("vault-id").(string),
 	}
 
 	var res []byte
@@ -359,8 +370,6 @@ func handleBetaVaultsCredentialsList(ctx context.Context, cmd *cli.Command) erro
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultCredentialListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -371,6 +380,8 @@ func handleBetaVaultsCredentialsList(ctx context.Context, cmd *cli.Command) erro
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultCredentialListParams{}
 
 	format := "explore"
 	explicitFormat := cmd.Root().IsSet("format")
@@ -430,10 +441,6 @@ func handleBetaVaultsCredentialsDelete(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultCredentialDeleteParams{
-		VaultID: cmd.Value("vault-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -443,6 +450,10 @@ func handleBetaVaultsCredentialsDelete(ctx context.Context, cmd *cli.Command) er
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaVaultCredentialDeleteParams{
+		VaultID: cmd.Value("vault-id").(string),
 	}
 
 	var res []byte
@@ -481,10 +492,6 @@ func handleBetaVaultsCredentialsArchive(ctx context.Context, cmd *cli.Command) e
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultCredentialArchiveParams{
-		VaultID: cmd.Value("vault-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -494,6 +501,10 @@ func handleBetaVaultsCredentialsArchive(ctx context.Context, cmd *cli.Command) e
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaVaultCredentialArchiveParams{
+		VaultID: cmd.Value("vault-id").(string),
 	}
 
 	var res []byte

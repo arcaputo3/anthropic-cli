@@ -46,8 +46,9 @@ var betaVaultsRetrieve = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -65,10 +66,12 @@ var betaVaultsUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:        "vault-id",
+			Required:    true,
+			PathParam:   "vault_id",
+			DataAliases: []string{"id"},
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "display-name",
 			Usage:    "Updated human-readable name for the vault. 1-255 characters.",
 			BodyPath: "display_name",
@@ -128,8 +131,9 @@ var betaVaultsDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -147,8 +151,9 @@ var betaVaultsArchive = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "vault-id",
-			Required: true,
+			Name:      "vault-id",
+			Required:  true,
+			PathParam: "vault_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -168,8 +173,6 @@ func handleBetaVaultsCreate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultNewParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -180,6 +183,8 @@ func handleBetaVaultsCreate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultNewParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -212,8 +217,6 @@ func handleBetaVaultsRetrieve(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultGetParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -224,6 +227,8 @@ func handleBetaVaultsRetrieve(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultGetParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -264,8 +269,6 @@ func handleBetaVaultsUpdate(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultUpdateParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -276,6 +279,8 @@ func handleBetaVaultsUpdate(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultUpdateParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -310,8 +315,6 @@ func handleBetaVaultsList(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -322,6 +325,8 @@ func handleBetaVaultsList(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultListParams{}
 
 	format := "explore"
 	explicitFormat := cmd.Root().IsSet("format")
@@ -371,8 +376,6 @@ func handleBetaVaultsDelete(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultDeleteParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -383,6 +386,8 @@ func handleBetaVaultsDelete(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultDeleteParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
@@ -420,8 +425,6 @@ func handleBetaVaultsArchive(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaVaultArchiveParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -432,6 +435,8 @@ func handleBetaVaultsArchive(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaVaultArchiveParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))

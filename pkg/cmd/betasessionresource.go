@@ -20,12 +20,14 @@ var betaSessionsResourcesRetrieve = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "session-id",
-			Required: true,
+			Name:      "session-id",
+			Required:  true,
+			PathParam: "session_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "resource-id",
-			Required: true,
+			Name:      "resource-id",
+			Required:  true,
+			PathParam: "resource_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -43,12 +45,15 @@ var betaSessionsResourcesUpdate = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "session-id",
-			Required: true,
+			Name:      "session-id",
+			Required:  true,
+			PathParam: "session_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "resource-id",
-			Required: true,
+			Name:        "resource-id",
+			Required:    true,
+			PathParam:   "resource_id",
+			DataAliases: []string{"id"},
 		},
 		&requestflag.Flag[string]{
 			Name:     "authorization-token",
@@ -72,8 +77,9 @@ var betaSessionsResourcesList = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "session-id",
-			Required: true,
+			Name:      "session-id",
+			Required:  true,
+			PathParam: "session_id",
 		},
 		&requestflag.Flag[int64]{
 			Name:      "limit",
@@ -105,12 +111,14 @@ var betaSessionsResourcesDelete = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "session-id",
-			Required: true,
+			Name:      "session-id",
+			Required:  true,
+			PathParam: "session_id",
 		},
 		&requestflag.Flag[string]{
-			Name:     "resource-id",
-			Required: true,
+			Name:      "resource-id",
+			Required:  true,
+			PathParam: "resource_id",
 		},
 		&requestflag.Flag[[]string]{
 			Name:       "beta",
@@ -128,8 +136,9 @@ var betaSessionsResourcesAdd = cli.Command{
 	Suggest: true,
 	Flags: []cli.Flag{
 		&requestflag.Flag[string]{
-			Name:     "session-id",
-			Required: true,
+			Name:      "session-id",
+			Required:  true,
+			PathParam: "session_id",
 		},
 		&requestflag.Flag[string]{
 			Name:     "file-id",
@@ -143,7 +152,7 @@ var betaSessionsResourcesAdd = cli.Command{
 			Required: true,
 			BodyPath: "type",
 		},
-		&requestflag.Flag[any]{
+		&requestflag.Flag[*string]{
 			Name:     "mount-path",
 			Usage:    "Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.",
 			BodyPath: "mount_path",
@@ -169,10 +178,6 @@ func handleBetaSessionsResourcesRetrieve(ctx context.Context, cmd *cli.Command) 
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaSessionResourceGetParams{
-		SessionID: cmd.Value("session-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -182,6 +187,10 @@ func handleBetaSessionsResourcesRetrieve(ctx context.Context, cmd *cli.Command) 
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaSessionResourceGetParams{
+		SessionID: cmd.Value("session-id").(string),
 	}
 
 	var res []byte
@@ -223,10 +232,6 @@ func handleBetaSessionsResourcesUpdate(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaSessionResourceUpdateParams{
-		SessionID: cmd.Value("session-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -236,6 +241,10 @@ func handleBetaSessionsResourcesUpdate(ctx context.Context, cmd *cli.Command) er
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaSessionResourceUpdateParams{
+		SessionID: cmd.Value("session-id").(string),
 	}
 
 	var res []byte
@@ -274,8 +283,6 @@ func handleBetaSessionsResourcesList(ctx context.Context, cmd *cli.Command) erro
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaSessionResourceListParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -286,6 +293,8 @@ func handleBetaSessionsResourcesList(ctx context.Context, cmd *cli.Command) erro
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaSessionResourceListParams{}
 
 	format := "explore"
 	explicitFormat := cmd.Root().IsSet("format")
@@ -345,10 +354,6 @@ func handleBetaSessionsResourcesDelete(ctx context.Context, cmd *cli.Command) er
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaSessionResourceDeleteParams{
-		SessionID: cmd.Value("session-id").(string),
-	}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -358,6 +363,10 @@ func handleBetaSessionsResourcesDelete(ctx context.Context, cmd *cli.Command) er
 	)
 	if err != nil {
 		return err
+	}
+
+	params := anthropic.BetaSessionResourceDeleteParams{
+		SessionID: cmd.Value("session-id").(string),
 	}
 
 	var res []byte
@@ -396,8 +405,6 @@ func handleBetaSessionsResourcesAdd(ctx context.Context, cmd *cli.Command) error
 		return fmt.Errorf("Unexpected extra arguments: %v", unusedArgs)
 	}
 
-	params := anthropic.BetaSessionResourceAddParams{}
-
 	options, err := flagOptions(
 		cmd,
 		apiquery.NestedQueryFormatBrackets,
@@ -408,6 +415,8 @@ func handleBetaSessionsResourcesAdd(ctx context.Context, cmd *cli.Command) error
 	if err != nil {
 		return err
 	}
+
+	params := anthropic.BetaSessionResourceAddParams{}
 
 	var res []byte
 	options = append(options, option.WithResponseBodyInto(&res))
